@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicine Expiry & Stock Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">✚</div>
+      <div><strong>MedStock</strong><small>Expiry & Stock Manager</small></div>
+    </div>
+    <nav>
+      <button class="nav-btn active" data-section="dashboard">▦ Dashboard</button>
+      <button class="nav-btn" data-section="inventory">▣ Inventory</button>
+      <button class="nav-btn" data-section="add">＋ Add Medicine</button>
+      <button class="nav-btn" data-section="alerts">⚠ Alerts</button>
+    </nav>
+    <div class="sidebar-footer">B.Tech Mini Project<br><span>Medicine Management System</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Manage medicine stock and expiry dates easily.</p>
+      </div>
+      <button class="primary" id="quickAdd">＋ Add Medicine</button>
+    </header>
+
+    <section id="dashboard" class="section active">
+      <div class="cards">
+        <div class="card"><span>Total Medicines</span><strong id="totalCount">0</strong><small>Items in inventory</small></div>
+        <div class="card warning"><span>Low Stock</span><strong id="lowCount">0</strong><small>Need restocking</small></div>
+        <div class="card orange"><span>Expiring Soon</span><strong id="soonCount">0</strong><small>Within 30 days</small></div>
+        <div class="card danger"><span>Expired</span><strong id="expiredCount">0</strong><small>Remove from stock</small></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div><h2>Recent Medicines</h2><p>Latest items in your inventory</p></div>
+          <button class="text-btn" id="viewInventory">View all →</button>
+        </div>
+        <div class="table-wrap"><table><thead><tr>
+          <th>Medicine</th><th>Batch</th><th>Quantity</th><th>Expiry</th><th>Stock</th><th>Status</th>
+        </tr></thead><tbody id="recentTable"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="inventory" class="section">
+      <div class="panel">
+        <div class="panel-head">
+          <div><h2>Medicine Inventory</h2><p>Search, filter and manage all medicines.</p></div>
+          <button class="primary" id="inventoryAdd">＋ Add Medicine</button>
+        </div>
+        <div class="toolbar">
+          <input id="searchInput" type="search" placeholder="🔍 Search by medicine, batch or category...">
+          <select id="statusFilter">
+            <option value="all">All Status</option>
+            <option value="safe">Safe</option>
+            <option value="soon">Expiring Soon</option>
+            <option value="expired">Expired</option>
+            <option value="low">Low Stock</option>
+          </select>
+        </div>
+        <div class="table-wrap"><table><thead><tr>
+          <th>Medicine</th><th>Batch</th><th>Category</th><th>Qty</th><th>Expiry</th><th>Status</th><th>Actions</th>
+        </tr></thead><tbody id="inventoryTable"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="add" class="section">
+      <div class="panel form-panel">
+        <div class="panel-head"><div><h2 id="formTitle">Add Medicine</h2><p>Enter medicine and stock details.</p></div></div>
+        <form id="medicineForm">
+          <input type="hidden" id="medicineId">
+          <div class="form-grid">
+            <label>Medicine Name<input id="name" required placeholder="e.g. Paracetamol"></label>
+            <label>Batch Number<input id="batch" required placeholder="e.g. PCM1026"></label>
+            <label>Category<select id="category"><option>Tablet</option><option>Capsule</option><option>Syrup</option><option>Injection</option><option>Cream</option><option>Other</option></select></label>
+            <label>Manufacturer<input id="manufacturer" placeholder="e.g. ABC Pharma"></label>
+            <label>Quantity<input id="quantity" type="number" min="0" required></label>
+            <label>Minimum Stock<input id="minimum" type="number" min="0" required></label>
+            <label>Manufacturing Date<input id="mfg" type="date"></label>
+            <label>Expiry Date<input id="expiry" type="date" required></label>
+            <label>Price (₹)<input id="price" type="number" min="0" step="0.01"></label>
+            <label>Supplier<input id="supplier" placeholder="Supplier name"></label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="secondary" id="cancelEdit">Clear</button>
+            <button type="submit" class="primary">Save Medicine</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="alerts" class="section">
+      <div class="cards">
+        <div class="card orange"><span>Expiry Alerts</span><strong id="alertExpiryCount">0</strong><small>Expired or expiring soon</small></div>
+        <div class="card warning"><span>Stock Alerts</span><strong id="alertStockCount">0</strong><small>Below minimum stock</small></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h2>Alerts</h2><p>Items that need attention.</p></div></div>
+        <div id="alertsList" class="alerts-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
